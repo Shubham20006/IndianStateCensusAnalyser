@@ -13,6 +13,7 @@ namespace IndStateCensusAnalyser
         public static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the Indian State Census Analyser Program");
+
             StateCensusAnalyser SCA = new StateCensusAnalyser();
             SCA.ReadingCSVFile();
         }
