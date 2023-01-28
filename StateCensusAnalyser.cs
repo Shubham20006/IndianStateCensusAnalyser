@@ -15,7 +15,7 @@ namespace IndStateCensusAnalyser
         public int b = 0;
         public int ReadingCSVFile()
         {
-            string CSVPath = @"C:\Users\Hp\Desktop\240\IndStateCensusAnalyser\IndStateCensusAnalyser\CSVStateCensus.csv";
+            string CSVPath = @"C:\Users\Hp\Desktop\240\IndStateCensusAnalyser\IndStateCensusAnalyser\StateCSV.csv";
             try
             {
                 using (var r = new StreamReader(CSVPath))
@@ -23,10 +23,10 @@ namespace IndStateCensusAnalyser
                 {
                     var CSVrecords = csv.GetRecords<AddressData>().ToList();
                     Console.WriteLine("*****State Census Data in CSV File*****");
-                    Console.WriteLine("FREQUENCY,DATE,LOCATION_NAME,LOCATION_F5,LOCATION_ID,LOCATION_REGIONID,VARIABLE_NAME,VALUE,VARIABLE_ID");
+                    Console.WriteLine("SrNo,StateName,TIN,StateCode");
                     foreach (AddressData i in CSVrecords)
                     {
-                        Console.WriteLine(i.FREQUENCY + "," + i.DATE + "," + i.LOCATION_NAME + "," + i.LOCATION_F5 + "," + i.LOCATION_ID + "," + i.LOCATION_REGIONID + "," + i.VARIABLE_NAME + "," + i.VALUE + "," + i.VARIABLE_ID);
+                        Console.WriteLine(i.SrNo + "," + i.StateName + "," + i.TIN + "," + i.StateCode);
                     }
                     return b = CSVrecords.Count;
                 }
@@ -39,7 +39,15 @@ namespace IndStateCensusAnalyser
             {
                 throw new CustomException(CustomException.ExceptionType.INCORRECT_TYPE, "Incorrect type");
             }
-                  
+            catch (HeaderValidationException)
+            {
+                throw new CustomException(CustomException.ExceptionType.INCORRECT_HEADER, "Incorrect Header");
+            }
+            catch (Exception)
+            {
+                throw new CustomException(CustomException.ExceptionType.INCORRECT_DELIMITER, "INCORRECT DELIMITER");
+            }
+
             return b;
         }
     }
