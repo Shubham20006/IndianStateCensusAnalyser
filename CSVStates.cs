@@ -1,6 +1,5 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration.Attributes;
-using CsvHelper.TypeConversion;
+﻿using CsvHelper.TypeConversion;
+using CsvHelper;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,30 +9,30 @@ using System.Threading.Tasks;
 
 namespace IndStateCensusAnalyser
 {
-    public class StateCensusAnalyser
+    public class CSVStates
     {
-        public int b = 0;
-        public int ReadingCSVFile()
+       
+        public static int ReadingStateCode()
         {
-            string CSVPath = @"C:\Users\Hp\Desktop\240\IndStateCensusAnalyser\IndStateCensusAnalyser\StateCSV.csv";
+            string Path = @"C:\Users\Hp\Desktop\240\IndStateCensusAnalyser\IndStateCensusAnalyser\StateCSV.csv";
             try
             {
-                using (var r = new StreamReader(CSVPath))
+                using (var r = new StreamReader(Path))
                 using (var csv = new CsvReader(r, CultureInfo.InvariantCulture))
                 {
                     var CSVrecords = csv.GetRecords<AddressData>().ToList();
                     Console.WriteLine("*****State Census Data in CSV File*****");
-                    Console.WriteLine("SrNo,StateName,TIN,StateCode");
+                    Console.WriteLine("StateCodes");
                     foreach (AddressData i in CSVrecords)
                     {
-                        Console.WriteLine(i.SrNo + "," + i.StateName + "," + i.TIN + "," + i.StateCode);
+                        Console.WriteLine( i.StateCode);
                     }
-                    return b = CSVrecords.Count;
+                    return CSVrecords.Count;
                 }
             }
             catch (CustomException)
-            {              
-                    throw new CustomException(CustomException.ExceptionType.RECORD_NOT_MATCH, "Record Not Match");
+            {
+                throw new CustomException(CustomException.ExceptionType.RECORD_NOT_MATCH, "Record Not Match");
             }
             catch (TypeConverterException)
             {
@@ -43,12 +42,13 @@ namespace IndStateCensusAnalyser
             {
                 throw new CustomException(CustomException.ExceptionType.INCORRECT_HEADER, "Incorrect Header");
             }
-            catch (Exception)
-            {
-                throw new CustomException(CustomException.ExceptionType.INCORRECT_DELIMITER, "INCORRECT DELIMITER");
-            }
+            //catch (Exception)
+            //{
+            //    throw new CustomException(CustomException.ExceptionType.INCORRECT_DELIMITER, "INCORRECT DELIMITER");
+            //}
 
-            return b;
+            
         }
     }
 }
+

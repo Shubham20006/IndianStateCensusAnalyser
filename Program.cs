@@ -14,8 +14,9 @@ namespace IndStateCensusAnalyser
         {
             Console.WriteLine("Welcome to the Indian State Census Analyser Program");
 
-            StateCensusAnalyser SCA = new StateCensusAnalyser();
-            SCA.ReadingCSVFile();
+           // StateCensusAnalyser SCA = new StateCensusAnalyser();
+          //  SCA.ReadingCSVFile();
+            CSVStates.ReadingStateCode();
         }
     }
 }
